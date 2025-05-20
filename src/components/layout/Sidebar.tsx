@@ -13,9 +13,7 @@ import {
   HelpCircle,
   BarChart4,
   Sparkles,
-  Book,
-  GraduationCap,
-  University
+  Book
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -52,15 +50,15 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
           {!collapsed && (
             <div className="flex flex-col items-center">
               <div className="flex items-center">
-                <University className="h-5 w-5 text-edu-accent mr-2" />
-                <h1 className="text-xl font-bold text-white">VTU Portal</h1>
+                <Sparkles className="h-5 w-5 text-edu-accent mr-2" />
+                <h1 className="text-xl font-bold text-white">PyGenicArc</h1>
               </div>
-              <span className="text-xs text-sidebar-foreground/70 mt-1 italic">for Faculty</span>
+              <span className="text-xs text-sidebar-foreground/70 mt-1 italic">for Instructors</span>
             </div>
           )}
           {collapsed && (
             <div className="flex items-center justify-center">
-              <University className="h-5 w-5 text-edu-accent" />
+              <Sparkles className="h-5 w-5 text-edu-accent" />
             </div>
           )}
         </div>
@@ -104,12 +102,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         <div className="p-4 border-t border-sidebar-border">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-edu-accent flex items-center justify-center text-white">
-              FP
+              JD
             </div>
             {!collapsed && (
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-white">Faculty Portal</span>
-                <span className="text-xs text-gray-300">VTU Karnataka</span>
+                <span className="text-sm font-medium text-white">John Doe</span>
+                <span className="text-xs text-gray-300">Professor</span>
               </div>
             )}
           </div>

@@ -30,7 +30,7 @@ const Layout: React.FC = () => {
               <path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.636 5.636l2.122 2.122m8.384 8.384 2.122 2.122M5.636 18.364l2.122-2.122m8.384-8.384 2.122-2.122"></path>
             </svg>
           </div>
-          <p className="text-muted-foreground">Loading VTU Faculty Portal...</p>
+          <p className="text-muted-foreground">Loading dashboard...</p>
         </div>
       </div>
     );
