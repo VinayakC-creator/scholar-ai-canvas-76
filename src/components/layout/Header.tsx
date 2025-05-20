@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Bell, Search, Settings, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { Bell, Search, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
 
   return (
     <header className={cn(
-      "fixed top-0 right-0 z-20 h-16 border-b border-border bg-background transition-all duration-300",
+      "fixed top-0 right-0 z-20 h-16 border-b border-border/40 bg-background/80 backdrop-blur-sm transition-all duration-300",
       collapsed ? "left-[70px]" : "left-[250px]"
     )}>
       <div className="flex h-full items-center justify-between px-4">
@@ -50,10 +50,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                 <li className="before:content-['/'] before:mx-2 before:text-muted-foreground">Dashboard</li>
               </ul>
             </div>
-            <h1 className="text-lg font-semibold flex items-center">
-              <Sparkles className="h-4 w-4 text-edu-accent mr-2" />
-              PyGenicArc Dashboard
-            </h1>
+            <h1 className="text-lg font-semibold">Dashboard</h1>
           </div>
         </div>
         
@@ -62,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search..."
-              className="w-[200px] lg:w-[300px] pl-8 rounded-lg bg-background"
+              className="w-[200px] lg:w-[300px] pl-8 rounded-lg bg-background/50 border-border/50 focus-visible:border-edu-primary"
             />
           </div>
           
@@ -75,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                 </Badge>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-[300px]">
+            <DropdownMenuContent align="end" className="w-[300px] animate-in fade-in">
               <div className="flex items-center justify-between px-3 py-2 border-b">
                 <h3 className="font-medium">Notifications</h3>
                 <Button variant="ghost" size="sm">Mark all read</Button>
@@ -134,7 +131,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px]">
+              <DropdownMenuContent align="end" className="w-[200px] animate-in fade-in">
                 <DropdownMenuItem className="py-2 px-3 cursor-pointer">
                   <div className="flex flex-col gap-1">
                     <p className="font-medium text-sm">Profile</p>

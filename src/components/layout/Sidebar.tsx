@@ -43,11 +43,14 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       collapsed ? "w-[70px]" : "w-[250px]"
     )}>
       <div className="flex h-full flex-col">
-        <div className="flex items-center justify-center h-16 p-4 border-b border-sidebar-border">
+        <div className="flex flex-col items-center justify-center h-16 p-4 border-b border-sidebar-border">
           {!collapsed && (
-            <div className="flex items-center">
-              <Sparkles className="h-5 w-5 text-edu-accent mr-2" />
-              <h1 className="text-xl font-bold text-white">PyGenicArc</h1>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center">
+                <Sparkles className="h-5 w-5 text-edu-accent mr-2" />
+                <h1 className="text-xl font-bold text-white">PyGenicArc</h1>
+              </div>
+              <span className="text-xs text-sidebar-foreground/70 mt-1 italic">for Instructors</span>
             </div>
           )}
           {collapsed && (
@@ -65,7 +68,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
               className={cn(
                 "nav-item",
                 location.pathname === item.path && "active",
-                collapsed && "justify-center"
+                collapsed && "justify-center",
+                "transition-all duration-200 hover:translate-x-1"
               )}
             >
               <item.icon className="h-5 w-5" />
@@ -82,7 +86,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
               className={cn(
                 "nav-item",
                 location.pathname === item.path && "active",
-                collapsed && "justify-center"
+                collapsed && "justify-center",
+                "transition-all duration-200 hover:translate-x-1"
               )}
             >
               <item.icon className="h-5 w-5" />

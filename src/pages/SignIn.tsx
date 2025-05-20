@@ -12,27 +12,32 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
-    // For demo purposes, we'll just navigate to the dashboard
-    toast({
-      title: "Welcome back!",
-      description: "You've successfully signed in to PyGenicArc.",
-    });
-    navigate('/');
+    setIsLoading(true);
+    
+    // Simulate loading for demo
+    setTimeout(() => {
+      toast({
+        title: "Welcome back!",
+        description: "You've successfully signed in to PyGenicArc.",
+      });
+      navigate('/');
+    }, 1000);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-edu-light via-white to-edu-gray-light flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="w-full max-w-md animate-fade-in">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden animate-scale-in">
           <div className="p-8">
             <div className="mb-8 text-center">
               <div className="flex justify-center mb-2">
-                <div className="h-12 w-12 rounded-full bg-edu-accent flex items-center justify-center text-white">
+                <div className="h-12 w-12 rounded-full bg-edu-accent flex items-center justify-center text-white animate-float">
                   <Sparkles className="h-6 w-6" />
                 </div>
               </div>
@@ -52,14 +57,14 @@ const SignIn: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="border-edu-primary/30 focus-visible:ring-edu-primary"
+                  className="border-edu-primary/30 focus-visible:ring-edu-primary transition-all duration-300 hover:border-edu-primary/50"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <a href="#" className="text-sm font-medium text-edu-accent hover:text-edu-accent-light">
+                  <a href="#" className="text-sm font-medium text-edu-accent hover:text-edu-accent-light transition-colors">
                     Forgot password?
                   </a>
                 </div>
@@ -70,7 +75,7 @@ const SignIn: React.FC = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="border-edu-primary/30 focus-visible:ring-edu-primary"
+                  className="border-edu-primary/30 focus-visible:ring-edu-primary transition-all duration-300 hover:border-edu-primary/50"
                 />
               </div>
 
@@ -79,6 +84,7 @@ const SignIn: React.FC = () => {
                   id="remember" 
                   checked={rememberMe} 
                   onCheckedChange={(checked) => setRememberMe(checked as boolean)} 
+                  className="data-[state=checked]:bg-edu-primary data-[state=checked]:border-edu-primary"
                 />
                 <Label htmlFor="remember" className="text-sm font-medium leading-none cursor-pointer">
                   Remember me for 30 days
@@ -87,16 +93,23 @@ const SignIn: React.FC = () => {
 
               <Button 
                 type="submit" 
-                className="w-full bg-edu-primary hover:bg-edu-dark flex items-center justify-center gap-2 h-11"
+                className="w-full bg-edu-primary hover:bg-edu-dark flex items-center justify-center gap-2 h-11 transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]"
+                disabled={isLoading}
               >
-                <LogIn className="h-4 w-4" />
-                Sign In
+                {isLoading ? (
+                  <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <LogIn className="h-4 w-4" />
+                    Sign In
+                  </>
+                )}
               </Button>
 
               <div className="text-center mt-4">
                 <span className="text-sm text-muted-foreground">
                   Don't have an account?{" "}
-                  <a href="#" className="text-edu-accent hover:text-edu-accent-light font-medium">
+                  <a href="#" className="text-edu-accent hover:text-edu-accent-light font-medium transition-colors">
                     Sign up
                   </a>
                 </span>
