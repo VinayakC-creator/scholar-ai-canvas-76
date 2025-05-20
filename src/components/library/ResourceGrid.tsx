@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   FileText, 
-  FilePresentation, 
+  Presentation, 
   Image as ImageIcon, 
   Video, 
   File, 
@@ -68,7 +68,7 @@ const ResourceGrid: React.FC<ResourceGridProps> = ({ filter, searchQuery }) => {
       case 'pdf':
         return <FileText className="h-10 w-10 text-red-500" />;
       case 'ppt':
-        return <FilePresentation className="h-10 w-10 text-orange-500" />;
+        return <Presentation className="h-10 w-10 text-orange-500" />;
       case 'image':
         return resource.thumbnail ? (
           <div className="h-10 w-10 rounded-md overflow-hidden bg-muted flex items-center justify-center">

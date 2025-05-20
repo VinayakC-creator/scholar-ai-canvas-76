@@ -2,7 +2,7 @@
 import React from 'react';
 import { 
   FileText, 
-  FilePresentation, 
+  Presentation, 
   Image as ImageIcon, 
   Video, 
   File, 
@@ -71,7 +71,7 @@ const ResourceList: React.FC<ResourceListProps> = ({ filter, searchQuery }) => {
       case 'pdf':
         return <FileText className="h-5 w-5 text-red-500" />;
       case 'ppt':
-        return <FilePresentation className="h-5 w-5 text-orange-500" />;
+        return <Presentation className="h-5 w-5 text-orange-500" />;
       case 'image':
         return <ImageIcon className="h-5 w-5 text-green-500" />;
       case 'doc':

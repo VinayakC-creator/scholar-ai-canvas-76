@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { FileQuestion, Loader2, Check, Plus, Trash2, Download } from 'lucide-react';
+import { FileQuestion, Loader2, Check, Plus, Trash2, Download, Sparkles } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -53,8 +52,8 @@ const QuestionBankGenerator: React.FC = () => {
         'fill-blank': 'Fill in the Blank'
       };
       
-      const questionCount = parseInt(questionCount, 10);
-      const generatedQuestions = Array.from({ length: questionCount }, (_, i) => ({
+      const count = parseInt(questionCount, 10);
+      const generatedQuestions = Array.from({ length: count }, (_, i) => ({
         id: i + 1,
         type: questionTypes[Math.floor(Math.random() * questionTypes.length)],
         question: `Sample ${types[questionTypes[0] as keyof typeof types]} question about ${topic} (${i + 1})`,
@@ -78,7 +77,7 @@ const QuestionBankGenerator: React.FC = () => {
       
       toast({
         title: "Question bank generated",
-        description: `${questionCount} questions have been created.`,
+        description: `${count} questions have been created.`,
       });
     }, 2000);
   };

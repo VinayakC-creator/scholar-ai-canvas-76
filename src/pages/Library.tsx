@@ -11,7 +11,7 @@ import {
   Upload, 
   FileText, 
   Image, 
-  FilePresentation, 
+  Presentation, 
   File, 
   Grid2x2, 
   List 
