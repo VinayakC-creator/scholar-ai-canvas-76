@@ -12,7 +12,8 @@ import {
   Settings, 
   HelpCircle,
   BarChart4,
-  Sparkles
+  Sparkles,
+  Book
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -30,6 +31,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     { icon: MessageSquare, label: 'Messages', path: '/messages' },
     { icon: FileText, label: 'Assignments', path: '/assignments' },
     { icon: BarChart4, label: 'Analytics', path: '/analytics' },
+    { icon: Sparkles, label: 'AI Tools', path: '/ai-tools' },
+    { icon: Book, label: 'Library', path: '/library' },
   ];
 
   const settingsItems = [

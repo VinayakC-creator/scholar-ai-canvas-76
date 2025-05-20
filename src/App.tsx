@@ -8,6 +8,8 @@ import Layout from "./components/layout/Layout";
 import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
+import AITools from "./pages/AITools";
+import Library from "./pages/Library";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
             <Route path="/messages" element={<Index />} />
             <Route path="/assignments" element={<Index />} />
             <Route path="/analytics" element={<Index />} />
+            <Route path="/ai-tools" element={<AITools />} />
+            <Route path="/library" element={<Library />} />
             <Route path="/settings" element={<Index />} />
             <Route path="/help" element={<Index />} />
           </Route>
