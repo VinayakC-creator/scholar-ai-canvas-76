@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { X, Sparkles } from 'lucide-react';
+import { X, University } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -13,18 +13,18 @@ interface ThemeConfiguratorProps {
 
 const ThemeConfigurator: React.FC<ThemeConfiguratorProps> = ({ onClose }) => {
   const colorSchemes = [
-    { name: 'Blue', primary: '#4361ee', accent: '#f72585' },
-    { name: 'Green', primary: '#2b9348', accent: '#ff6b6b' },
-    { name: 'Purple', primary: '#7209b7', accent: '#4cc9f0' },
-    { name: 'Orange', primary: '#fb8500', accent: '#219ebc' }
+    { name: 'VTU Blue', primary: '#4361ee', accent: '#f72585' },
+    { name: 'VTU Green', primary: '#2b9348', accent: '#ff6b6b' },
+    { name: 'VTU Purple', primary: '#7209b7', accent: '#4cc9f0' },
+    { name: 'VTU Orange', primary: '#fb8500', accent: '#219ebc' }
   ];
 
   return (
     <div className="fixed top-16 right-0 bottom-0 w-[300px] bg-white shadow-xl border-l border-border z-50 overflow-y-auto animate-slide-in">
       <div className="flex items-center justify-between border-b p-4">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-edu-accent" />
-          <h2 className="font-semibold text-lg">PyGenicArc Settings</h2>
+          <University className="h-5 w-5 text-edu-accent" />
+          <h2 className="font-semibold text-lg">VTU Portal Settings</h2>
         </div>
         <Button variant="ghost" size="icon" onClick={onClose}>
           <X className="h-5 w-5" />
@@ -50,7 +50,7 @@ const ThemeConfigurator: React.FC<ThemeConfiguratorProps> = ({ onClose }) => {
         
         <div className="space-y-3 border-t pt-3">
           <h3 className="font-medium">Color Scheme</h3>
-          <RadioGroup defaultValue="Blue">
+          <RadioGroup defaultValue="VTU Blue">
             <div className="grid grid-cols-2 gap-2">
               {colorSchemes.map((scheme) => (
                 <div key={scheme.name} className="flex items-center space-x-2">
@@ -85,9 +85,9 @@ const ThemeConfigurator: React.FC<ThemeConfiguratorProps> = ({ onClose }) => {
         </div>
         
         <div className="space-y-3 border-t pt-3">
-          <h3 className="font-medium">AI Assistant</h3>
+          <h3 className="font-medium">VTU AI Assistant</h3>
           <div className="flex items-center justify-between">
-            <Label htmlFor="ai-assistant">Enable AI Assistant</Label>
+            <Label htmlFor="ai-assistant">Enable VTU AI Assistant</Label>
             <Switch id="ai-assistant" defaultChecked />
           </div>
           <div className="flex items-center justify-between">

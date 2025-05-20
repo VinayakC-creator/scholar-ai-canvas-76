@@ -46,11 +46,11 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
           <div className="hidden md:block">
             <div className="text-sm breadcrumbs">
               <ul className="flex items-center space-x-2">
-                <li className="text-muted-foreground">Pages</li>
-                <li className="before:content-['/'] before:mx-2 before:text-muted-foreground">Dashboard</li>
+                <li className="text-muted-foreground">VTU</li>
+                <li className="before:content-['/'] before:mx-2 before:text-muted-foreground">Faculty Portal</li>
               </ul>
             </div>
-            <h1 className="text-lg font-semibold">Dashboard</h1>
+            <h1 className="text-lg font-semibold">Visvesvaraya Technological University</h1>
           </div>
         </div>
         
@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
           <div className="relative hidden md:block">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Search..."
+              placeholder="Search VTU resources..."
               className="w-[200px] lg:w-[300px] pl-8 rounded-lg bg-background/50 border-border/50 focus-visible:border-edu-primary"
             />
           </div>
@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                       <p className="font-medium text-sm">New Assignment Submission</p>
                       <span className="text-xs text-muted-foreground">10m ago</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">Emily Davis submitted the Physics homework</p>
+                    <p className="text-xs text-muted-foreground">Engineering student submitted the Electronics homework</p>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="py-2 px-3 cursor-pointer">
@@ -93,7 +93,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                       <p className="font-medium text-sm">Course Feedback Received</p>
                       <span className="text-xs text-muted-foreground">2h ago</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">Michael Brown left feedback for your Biology course</p>
+                    <p className="text-xs text-muted-foreground">CS Department HOD left feedback for your course</p>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="py-2 px-3 cursor-pointer">
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                       <p className="font-medium text-sm">Calendar Event Reminder</p>
                       <span className="text-xs text-muted-foreground">1d ago</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">Faculty meeting tomorrow at 10:00 AM</p>
+                    <p className="text-xs text-muted-foreground">VTU Faculty meeting tomorrow at 10:00 AM</p>
                   </div>
                 </DropdownMenuItem>
               </div>
@@ -127,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                   <div className="h-8 w-8 rounded-full bg-edu-accent flex items-center justify-center text-white">
-                    JD
+                    VF
                   </div>
                 </Button>
               </DropdownMenuTrigger>

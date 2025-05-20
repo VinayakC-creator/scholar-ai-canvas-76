@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -43,8 +44,8 @@ const Library: React.FC = () => {
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Library</h1>
-          <p className="text-muted-foreground">Manage your teaching resources</p>
+          <h1 className="text-3xl font-bold">VTU Resource Library</h1>
+          <p className="text-muted-foreground">Manage your teaching resources for Engineering courses</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button size="sm" variant="outline" className="hover-scale" onClick={handleNewFolder}>
@@ -64,7 +65,7 @@ const Library: React.FC = () => {
             <div className="relative flex-1">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search resources..."
+                placeholder="Search VTU resources..."
                 className="pl-9"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
