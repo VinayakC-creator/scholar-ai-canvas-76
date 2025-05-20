@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -104,7 +103,7 @@ const Library: React.FC = () => {
                 <span>Documents</span>
               </TabsTrigger>
               <TabsTrigger value="presentations" className="flex gap-1">
-                <FilePresentation className="h-4 w-4" />
+                <Presentation className="h-4 w-4" />
                 <span>Presentations</span>
               </TabsTrigger>
               <TabsTrigger value="images" className="flex gap-1">

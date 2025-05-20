@@ -302,5 +302,3 @@ const QuestionBankGenerator: React.FC = () => {
 };
 
 export default QuestionBankGenerator;
-
-import { Sparkles } from 'lucide-react';
