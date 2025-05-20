@@ -72,7 +72,11 @@ export default {
 					gray: '#f8f9fa', 
 					'gray-light': '#ffffff',
 					'gray-dark': '#e9ecef',
-					text: '#212529'
+					text: '#212529',
+					primary: '#4361ee',
+					secondary: '#7209b7',
+					tertiary: '#3a0ca3',
+					highlight: '#f72585'
 				}
 			},
 			borderRadius: {

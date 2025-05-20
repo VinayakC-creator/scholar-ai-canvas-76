@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { X } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
@@ -22,7 +22,10 @@ const ThemeConfigurator: React.FC<ThemeConfiguratorProps> = ({ onClose }) => {
   return (
     <div className="fixed top-16 right-0 bottom-0 w-[300px] bg-white shadow-xl border-l border-border z-50 overflow-y-auto animate-slide-in">
       <div className="flex items-center justify-between border-b p-4">
-        <h2 className="font-semibold text-lg">Theme Settings</h2>
+        <div className="flex items-center gap-2">
+          <Sparkles className="h-5 w-5 text-edu-accent" />
+          <h2 className="font-semibold text-lg">PyGenicArc Settings</h2>
+        </div>
         <Button variant="ghost" size="icon" onClick={onClose}>
           <X className="h-5 w-5" />
         </Button>

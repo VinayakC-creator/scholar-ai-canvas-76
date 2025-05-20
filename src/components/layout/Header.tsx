@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Bell, Search, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Bell, Search, Settings, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -12,6 +12,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import ThemeConfigurator from '@/components/ThemeConfigurator';
 import { cn } from '@/lib/utils';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -20,6 +21,11 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
   const [showConfigurator, setShowConfigurator] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/signin');
+  };
 
   return (
     <header className={cn(
@@ -44,7 +50,10 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                 <li className="before:content-['/'] before:mx-2 before:text-muted-foreground">Dashboard</li>
               </ul>
             </div>
-            <h1 className="text-lg font-semibold">Dashboard</h1>
+            <h1 className="text-lg font-semibold flex items-center">
+              <Sparkles className="h-4 w-4 text-edu-accent mr-2" />
+              PyGenicArc Dashboard
+            </h1>
           </div>
         </div>
         
@@ -116,10 +125,33 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
             <Settings className="h-5 w-5" />
           </Button>
           
-          <div className="hidden md:flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-edu-accent flex items-center justify-center text-white">
-              JD
-            </div>
+          <div className="flex items-center gap-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <div className="h-8 w-8 rounded-full bg-edu-accent flex items-center justify-center text-white">
+                    JD
+                  </div>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[200px]">
+                <DropdownMenuItem className="py-2 px-3 cursor-pointer">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-medium text-sm">Profile</p>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="py-2 px-3 cursor-pointer">
+                  <div className="flex flex-col gap-1">
+                    <p className="font-medium text-sm">Settings</p>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="py-2 px-3 cursor-pointer" onClick={handleLogout}>
+                  <div className="flex flex-col gap-1">
+                    <p className="font-medium text-sm">Sign out</p>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>

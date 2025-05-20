@@ -11,7 +11,8 @@ import {
   FileText, 
   Settings, 
   HelpCircle,
-  BarChart4
+  BarChart4,
+  Sparkles
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -44,10 +45,15 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
       <div className="flex h-full flex-col">
         <div className="flex items-center justify-center h-16 p-4 border-b border-sidebar-border">
           {!collapsed && (
-            <h1 className="text-xl font-bold text-white">EduAI <span className="text-edu-accent">Pro</span></h1>
+            <div className="flex items-center">
+              <Sparkles className="h-5 w-5 text-edu-accent mr-2" />
+              <h1 className="text-xl font-bold text-white">PyGenicArc</h1>
+            </div>
           )}
           {collapsed && (
-            <span className="text-xl font-bold text-white">E</span>
+            <div className="flex items-center justify-center">
+              <Sparkles className="h-5 w-5 text-edu-accent" />
+            </div>
           )}
         </div>
         
