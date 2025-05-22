@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -7,13 +6,12 @@ import {
   BookOpen, 
   Users, 
   Calendar, 
-  MessageSquare, 
   FileText, 
   Settings, 
   HelpCircle,
   BarChart4,
   Sparkles,
-  Book
+  Folder
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -28,11 +26,10 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     { icon: BookOpen, label: 'Courses', path: '/courses' },
     { icon: Users, label: 'Students', path: '/students' },
     { icon: Calendar, label: 'Calendar', path: '/calendar' },
-    { icon: MessageSquare, label: 'Messages', path: '/messages' },
     { icon: FileText, label: 'Assignments', path: '/assignments' },
     { icon: BarChart4, label: 'Analytics', path: '/analytics' },
     { icon: Sparkles, label: 'AI Tools', path: '/ai-tools' },
-    { icon: Book, label: 'Library', path: '/library' },
+    { icon: Folder, label: 'Workspace', path: '/workspace' },
   ];
 
   const settingsItems = [

@@ -9,7 +9,7 @@ import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import AITools from "./pages/AITools";
-import Library from "./pages/Library";
+import Workspace from "./pages/Workspace";
 import SemesterSelector from "./components/SemesterSelector";
 
 const queryClient = new QueryClient();
@@ -28,11 +28,10 @@ const App = () => (
             <Route path="/courses" element={<Index />} />
             <Route path="/students" element={<Index />} />
             <Route path="/calendar" element={<Index />} />
-            <Route path="/messages" element={<Index />} />
             <Route path="/assignments" element={<Index />} />
             <Route path="/analytics" element={<Index />} />
             <Route path="/ai-tools" element={<AITools />} />
-            <Route path="/library" element={<Library />} />
+            <Route path="/workspace" element={<Workspace />} />
             <Route path="/settings" element={<Index />} />
             <Route path="/help" element={<Index />} />
           </Route>
