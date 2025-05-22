@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bell, Search, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +7,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger 
+  DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
 import ThemeConfigurator from '@/components/ThemeConfigurator';
@@ -21,10 +22,35 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
   const [showConfigurator, setShowConfigurator] = useState(false);
+  const [currentSemester, setCurrentSemester] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const semesterId = sessionStorage.getItem('currentSemester');
+    if (semesterId) {
+      // Map semester ID to full name
+      const semesterMap: Record<string, string> = {
+        "1": "1st Semester",
+        "2": "2nd Semester",
+        "3": "3rd Semester",
+        "4": "4th Semester",
+        "5": "5th Semester",
+        "6": "6th Semester",
+        "7": "7th Semester",
+        "8": "8th Semester",
+      };
+      setCurrentSemester(semesterMap[semesterId] || `Semester ${semesterId}`);
+    }
+  }, []);
+
   const handleLogout = () => {
+    // Clear the semester selection when logging out
+    sessionStorage.removeItem('currentSemester');
     navigate('/signin');
+  };
+  
+  const handleChangeSemester = () => {
+    navigate('/select-semester');
   };
 
   return (
@@ -55,6 +81,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
         </div>
         
         <div className="flex items-center gap-3">
+          {currentSemester && (
+            <Badge className="bg-edu-primary text-white hover:bg-edu-dark py-1 px-3 cursor-pointer" onClick={handleChangeSemester}>
+              {currentSemester}
+            </Badge>
+          )}
+          
           <div className="relative hidden md:block">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -140,6 +172,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
                 <DropdownMenuItem className="py-2 px-3 cursor-pointer">
                   <div className="flex flex-col gap-1">
                     <p className="font-medium text-sm">Settings</p>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="py-2 px-3 cursor-pointer" onClick={handleChangeSemester}>
+                  <div className="flex flex-col gap-1">
+                    <p className="font-medium text-sm">Change Semester</p>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="py-2 px-3 cursor-pointer" onClick={handleLogout}>

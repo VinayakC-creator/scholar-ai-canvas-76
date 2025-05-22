@@ -26,7 +26,8 @@ const SignIn: React.FC = () => {
         title: "Welcome back!",
         description: "You've successfully signed in to PyGenicArc.",
       });
-      navigate('/');
+      // Redirect to semester selector instead of dashboard
+      navigate('/select-semester');
     }, 1000);
   };
 

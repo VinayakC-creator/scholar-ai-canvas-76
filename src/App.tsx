@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import AITools from "./pages/AITools";
 import Library from "./pages/Library";
+import SemesterSelector from "./components/SemesterSelector";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/select-semester" element={<SemesterSelector />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
             <Route path="/courses" element={<Index />} />

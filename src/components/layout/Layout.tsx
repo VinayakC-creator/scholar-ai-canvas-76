@@ -1,21 +1,30 @@
 
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
 const Layout: React.FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
-  // Simulate loading for demo purposes
+  // Check if semester is selected
   useEffect(() => {
+    const currentSemester = sessionStorage.getItem('currentSemester');
+    if (!currentSemester) {
+      // If no semester selected, redirect to semester selector
+      navigate('/select-semester');
+      return;
+    }
+    
+    // Simulate loading for demo purposes
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 800);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigate]);
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
