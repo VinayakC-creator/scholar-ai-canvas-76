@@ -21,6 +21,13 @@ export interface Subject {
   name: string;
   modules: Module[];
   totalChapters: number;
+  color?: string;         // Add color property
+  ongoing?: boolean;      // Add ongoing property
+  schedule?: {            // Add schedule property
+    day: string;
+    time: string;
+  };
+  studentCount?: number;  // Add studentCount property
 }
 
 // Define subject data for each semester
@@ -352,4 +359,68 @@ export const getSubject = (subjectId: string): Subject | undefined => {
     if (subject) return subject;
   }
   return undefined;
+};
+
+// Add the missing getSubjectsByParams function
+export const getSubjectsByParams = ({ 
+  semester, 
+  search 
+}: { 
+  semester: string; 
+  search: string 
+}): Subject[] => {
+  const subjects = getSemesterSubjects(semester);
+  
+  if (!search) {
+    return subjects.map(subject => ({
+      ...subject,
+      color: subject.color || getRandomColor(subject.id),
+      ongoing: subject.ongoing !== undefined ? subject.ongoing : Math.random() > 0.5,
+      schedule: subject.schedule || {
+        day: getRandomDay(),
+        time: getRandomTime()
+      },
+      studentCount: subject.studentCount || Math.floor(Math.random() * 60) + 20
+    }));
+  }
+  
+  const searchLower = search.toLowerCase();
+  return subjects
+    .filter(subject => 
+      subject.name.toLowerCase().includes(searchLower) || 
+      subject.code.toLowerCase().includes(searchLower)
+    )
+    .map(subject => ({
+      ...subject,
+      color: subject.color || getRandomColor(subject.id),
+      ongoing: subject.ongoing !== undefined ? subject.ongoing : Math.random() > 0.5,
+      schedule: subject.schedule || {
+        day: getRandomDay(),
+        time: getRandomTime()
+      },
+      studentCount: subject.studentCount || Math.floor(Math.random() * 60) + 20
+    }));
+};
+
+// Helper functions for generating random values
+const getRandomColor = (id: string): string => {
+  const colors = [
+    '#FF5733', '#33FF57', '#3357FF', '#F033FF', '#FF33F0',
+    '#33FFF0', '#F0FF33', '#5733FF', '#FF5733', '#33FF57'
+  ];
+  // Use the id to generate a consistent color for the same subject
+  const index = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
+  return colors[index];
+};
+
+const getRandomDay = (): string => {
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  return days[Math.floor(Math.random() * days.length)];
+};
+
+const getRandomTime = (): string => {
+  const hours = ['8:00', '9:30', '11:00', '1:00', '2:30', '4:00'];
+  const periods = ['AM', 'AM', 'AM', 'PM', 'PM', 'PM'];
+  const index = Math.floor(Math.random() * hours.length);
+  return `${hours[index]} ${periods[index]}`;
 };
