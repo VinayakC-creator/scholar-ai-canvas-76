@@ -10,6 +10,8 @@ import SignIn from "./pages/SignIn";
 import NotFound from "./pages/NotFound";
 import AITools from "./pages/AITools";
 import Workspace from "./pages/Workspace";
+import SubjectView from "./pages/SubjectView";
+import AttendanceMark from "./pages/AttendanceMark";
 import SemesterSelector from "./components/SemesterSelector";
 
 const queryClient = new QueryClient();
@@ -32,6 +34,8 @@ const App = () => (
             <Route path="/analytics" element={<Index />} />
             <Route path="/ai-tools" element={<AITools />} />
             <Route path="/workspace" element={<Workspace />} />
+            <Route path="/workspace/:subjectId" element={<SubjectView />} />
+            <Route path="/workspace/attendance" element={<AttendanceMark />} />
             <Route path="/settings" element={<Index />} />
             <Route path="/help" element={<Index />} />
           </Route>
