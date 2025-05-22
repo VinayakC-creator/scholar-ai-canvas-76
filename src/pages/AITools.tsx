@@ -1,10 +1,9 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AISummarizer from '@/components/ai-tools/AISummarizer';
 import PPTGenerator from '@/components/ai-tools/PPTGenerator';
-import QuestionBankGenerator from '@/components/ai-tools/QuestionBankGenerator';
 import { Sparkles } from 'lucide-react';
 
 const AITools: React.FC = () => {
@@ -22,10 +21,9 @@ const AITools: React.FC = () => {
       </div>
 
       <Tabs defaultValue="summarizer" className="w-full">
-        <TabsList className="grid grid-cols-3 w-full md:w-[400px]">
+        <TabsList className="grid grid-cols-2 w-full md:w-[300px]">
           <TabsTrigger value="summarizer">AI Summarizer</TabsTrigger>
           <TabsTrigger value="ppt">PPT Generator</TabsTrigger>
-          <TabsTrigger value="questions">Question Bank</TabsTrigger>
         </TabsList>
         
         <TabsContent value="summarizer" className="mt-6 animate-fade-in">
@@ -34,10 +32,6 @@ const AITools: React.FC = () => {
         
         <TabsContent value="ppt" className="mt-6 animate-fade-in">
           <PPTGenerator />
-        </TabsContent>
-        
-        <TabsContent value="questions" className="mt-6 animate-fade-in">
-          <QuestionBankGenerator />
         </TabsContent>
       </Tabs>
     </div>

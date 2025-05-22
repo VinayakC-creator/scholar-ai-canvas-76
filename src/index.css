@@ -35,20 +35,15 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 223 85% 20%;
+    /* Updated sidebar colors for a better experience */
+    --sidebar-background: 215 60% 16%;
     --sidebar-foreground: 210 40% 98%;
-
-    --sidebar-primary: 221 83% 53%;
-
+    --sidebar-primary: 210 100% 70%;
     --sidebar-primary-foreground: 0 0% 100%;
-
-    --sidebar-accent: 349 95% 55%;
-
-    --sidebar-accent-foreground: 210 40% 98%;
-
-    --sidebar-border: 225 25% 30%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 100% 60%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 215 30% 22%;
+    --sidebar-ring: 210 100% 60%;
   }
 
   * {
