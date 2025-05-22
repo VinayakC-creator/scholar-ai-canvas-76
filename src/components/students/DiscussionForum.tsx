@@ -50,8 +50,8 @@ interface Reply {
 const discussions: Discussion[] = [
   {
     id: '1',
-    title: 'Help understanding Newton's Third Law',
-    content: 'I'm struggling to understand how Newton's Third Law applies in situations where objects are at rest. Can someone explain?',
+    title: "Help understanding Newton's Third Law",
+    content: "I'm struggling to understand how Newton's Third Law applies in situations where objects are at rest. Can someone explain?",
     author: {
       name: 'Alex Johnson',
       role: 'Student'
@@ -79,7 +79,7 @@ const discussions: Discussion[] = [
   {
     id: '3',
     title: 'Help with calculus integration techniques',
-    content: 'I'm having trouble applying integration by parts. Can someone show me step by step examples?',
+    content: "I'm having trouble applying integration by parts. Can someone show me step by step examples?",
     author: {
       name: 'James Wilson',
       role: 'Student'
@@ -93,7 +93,7 @@ const discussions: Discussion[] = [
   {
     id: '4',
     title: 'Question about cell membrane transport',
-    content: 'What's the difference between active and passive transport across cell membranes? I'm confused about when cells use each method.',
+    content: "What's the difference between active and passive transport across cell membranes? I'm confused about when cells use each method.",
     author: {
       name: 'Priya Sharma',
       role: 'Student'
@@ -109,7 +109,7 @@ const discussions: Discussion[] = [
 const discussionReplies: Reply[] = [
   {
     id: '1',
-    content: 'Newton's Third Law states that for every action, there is an equal and opposite reaction. For objects at rest, this means the forces acting on them are balanced. For example, when a book is sitting on a table, the table exerts an upward force equal to the book's weight.',
+    content: "Newton's Third Law states that for every action, there is an equal and opposite reaction. For objects at rest, this means the forces acting on them are balanced. For example, when a book is sitting on a table, the table exerts an upward force equal to the book's weight.",
     author: {
       name: 'Dr. Williams',
       role: 'Instructor'
@@ -120,7 +120,7 @@ const discussionReplies: Reply[] = [
   },
   {
     id: '2',
-    content: 'Thanks for the explanation! So if I'm sitting on a chair, my weight pushes down and the chair pushes up with equal force?',
+    content: "Thanks for the explanation! So if I'm sitting on a chair, my weight pushes down and the chair pushes up with equal force?",
     author: {
       name: 'Alex Johnson',
       role: 'Student'
@@ -131,7 +131,7 @@ const discussionReplies: Reply[] = [
   },
   {
     id: '3',
-    content: 'Exactly! That's a perfect example of Newton's Third Law at work with objects at rest. The forces are balanced which is why you don't move.',
+    content: "Exactly! That's a perfect example of Newton's Third Law at work with objects at rest. The forces are balanced which is why you don't move.",
     author: {
       name: 'Dr. Williams',
       role: 'Instructor'
