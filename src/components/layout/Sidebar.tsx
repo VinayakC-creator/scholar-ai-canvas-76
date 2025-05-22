@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -23,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-    { icon: BookOpen, label: 'Courses', path: '/courses' },
+    { icon: BookOpen, label: 'Subjects', path: '/subjects' },
     { icon: Users, label: 'Students', path: '/students' },
     { icon: Calendar, label: 'Calendar', path: '/calendar' },
     { icon: FileText, label: 'Assignments', path: '/assignments' },

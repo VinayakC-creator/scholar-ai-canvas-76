@@ -13,6 +13,8 @@ import Workspace from "./pages/Workspace";
 import SubjectView from "./pages/SubjectView";
 import AttendanceMark from "./pages/AttendanceMark";
 import SemesterSelector from "./components/SemesterSelector";
+import Subjects from "./pages/Subjects";
+import SubjectQuestionBank from "./pages/SubjectQuestionBank";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +29,9 @@ const App = () => (
           <Route path="/select-semester" element={<SemesterSelector />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Index />} />
-            <Route path="/courses" element={<Index />} />
+            <Route path="/subjects" element={<Subjects />} />
+            <Route path="/subjects/:subjectId" element={<SubjectView />} />
+            <Route path="/subjects/:subjectId/question-bank" element={<SubjectQuestionBank />} />
             <Route path="/students" element={<Index />} />
             <Route path="/calendar" element={<Index />} />
             <Route path="/assignments" element={<Index />} />
