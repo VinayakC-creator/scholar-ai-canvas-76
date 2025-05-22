@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { Users, BookOpen, Clock } from 'lucide-react';
 
 const StudentStatistics: React.FC = () => {
   // Gender distribution data
