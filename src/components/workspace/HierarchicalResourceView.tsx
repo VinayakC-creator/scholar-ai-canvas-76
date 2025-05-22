@@ -14,7 +14,7 @@ import {
   Edit
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Subject, getSubject } from '@/data/subjectsData';
+import { Subject, getSubject, getSubjectsByParams } from '@/data/subjectsData';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { 
@@ -53,10 +53,13 @@ const HierarchicalResourceView: React.FC<HierarchicalResourceViewProps> = ({ sem
   };
   
   const handleAITools = (name: string, level: 'subject' | 'module' | 'chapter') => {
-    navigate('/ai-tools', { state: { 
-      context: name, 
-      level: level
-    }});
+    navigate('/workspace', { 
+      state: { 
+        activeTab: 'ai-tools',
+        context: name,
+        level: level
+      }
+    });
   };
   
   const handlePPTEditor = (name: string) => {
@@ -67,7 +70,7 @@ const HierarchicalResourceView: React.FC<HierarchicalResourceViewProps> = ({ sem
   };
   
   const handleGenerateQuestions = (name: string, level: 'subject' | 'module' | 'chapter') => {
-    navigate('/workspace', { 
+    navigate('/ai-tools', { 
       state: { 
         activeTab: 'question-bank',
         context: name,
@@ -289,7 +292,10 @@ const HierarchicalResourceView: React.FC<HierarchicalResourceViewProps> = ({ sem
                                       variant="ghost" 
                                       size="icon" 
                                       className="h-6 w-6" 
-                                      onClick={() => handleAITools(chapter.name, 'chapter')}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleAITools(chapter.name, 'chapter');
+                                      }}
                                     >
                                       <Sparkles className="h-3 w-3" />
                                     </Button>
@@ -307,7 +313,10 @@ const HierarchicalResourceView: React.FC<HierarchicalResourceViewProps> = ({ sem
                                       variant="ghost" 
                                       size="icon" 
                                       className="h-6 w-6" 
-                                      onClick={() => handlePPTEditor(chapter.name)}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handlePPTEditor(chapter.name);
+                                      }}
                                     >
                                       <Edit className="h-3 w-3" />
                                     </Button>
@@ -325,7 +334,10 @@ const HierarchicalResourceView: React.FC<HierarchicalResourceViewProps> = ({ sem
                                       variant="ghost" 
                                       size="icon" 
                                       className="h-6 w-6" 
-                                      onClick={() => handleGenerateQuestions(chapter.name, 'chapter')}
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleGenerateQuestions(chapter.name, 'chapter');
+                                      }}
                                     >
                                       <FileQuestion className="h-3 w-3" />
                                     </Button>
@@ -368,68 +380,3 @@ const HierarchicalResourceView: React.FC<HierarchicalResourceViewProps> = ({ sem
 };
 
 export default HierarchicalResourceView;
-
-export function getSubjectsByParams({ semester, search }: { semester: string; search: string }) {
-  // This is a temporary function that should be imported from data/subjectsData.ts
-  // but is defined here to avoid dependency issues during development
-  
-  // In production, this import would be used instead:
-  // import { getSubjectsByParams } from '@/data/subjectsData';
-  // return getSubjectsByParams({ semester, search });
-  
-  const { getSemesterSubjects } = require('@/data/subjectsData');
-  const subjects = getSemesterSubjects(semester);
-  
-  if (!search) {
-    return subjects.map((subject: any) => ({
-      ...subject,
-      color: subject.color || getRandomColor(subject.id),
-      ongoing: subject.ongoing !== undefined ? subject.ongoing : Math.random() > 0.5,
-      schedule: subject.schedule || {
-        day: getRandomDay(),
-        time: getRandomTime()
-      },
-      studentCount: subject.studentCount || Math.floor(Math.random() * 60) + 20
-    }));
-  }
-  
-  const searchLower = search.toLowerCase();
-  return subjects
-    .filter((subject: any) => 
-      subject.name.toLowerCase().includes(searchLower) || 
-      subject.code.toLowerCase().includes(searchLower)
-    )
-    .map((subject: any) => ({
-      ...subject,
-      color: subject.color || getRandomColor(subject.id),
-      ongoing: subject.ongoing !== undefined ? subject.ongoing : Math.random() > 0.5,
-      schedule: subject.schedule || {
-        day: getRandomDay(),
-        time: getRandomTime()
-      },
-      studentCount: subject.studentCount || Math.floor(Math.random() * 60) + 20
-    }));
-}
-
-// Helper functions for generating random values
-const getRandomColor = (id: string): string => {
-  const colors = [
-    '#FF5733', '#33FF57', '#3357FF', '#F033FF', '#FF33F0',
-    '#33FFF0', '#F0FF33', '#5733FF', '#FF5733', '#33FF57'
-  ];
-  // Use the id to generate a consistent color for the same subject
-  const index = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % colors.length;
-  return colors[index];
-};
-
-const getRandomDay = (): string => {
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  return days[Math.floor(Math.random() * days.length)];
-};
-
-const getRandomTime = (): string => {
-  const hours = ['8:00', '9:30', '11:00', '1:00', '2:30', '4:00'];
-  const periods = ['AM', 'AM', 'AM', 'PM', 'PM', 'PM'];
-  const index = Math.floor(Math.random() * hours.length);
-  return `${hours[index]} ${periods[index]}`;
-};
