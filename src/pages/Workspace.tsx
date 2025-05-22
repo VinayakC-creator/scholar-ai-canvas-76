@@ -1,23 +1,33 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Search, 
   Folder,
-  Play,
-  Plus
+  Plus,
+  FileText,
+  Presentation,
+  Image as ImageIcon,
+  Sparkles,
+  FileQuestion
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import WorkspaceSubjectGrid from '@/components/workspace/WorkspaceSubjectGrid';
-import WorkspaceSubjectList from '@/components/workspace/WorkspaceSubjectList';
+import WorkspaceResourceGrid from '@/components/workspace/WorkspaceResourceGrid';
+import WorkspaceResourceList from '@/components/workspace/WorkspaceResourceList';
 import { useNavigate } from 'react-router-dom';
+import AISummarizer from '@/components/ai-tools/AISummarizer';
+import PPTGenerator from '@/components/ai-tools/PPTGenerator';
+import QuestionBankGenerator from '@/components/ai-tools/QuestionBankGenerator';
 
 const Workspace: React.FC = () => {
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentSemester, setCurrentSemester] = useState<string>('');
+  const [resourceFilter, setResourceFilter] = useState<'all' | 'documents' | 'presentations' | 'images'>('all');
+  const [activeTab, setActiveTab] = useState<string>('resources');
   const { toast } = useToast();
   const navigate = useNavigate();
   
@@ -34,14 +44,15 @@ const Workspace: React.FC = () => {
   const handleNewFolder = () => {
     toast({
       title: "Create folder",
-      description: "This would create a new subject folder in a real implementation.",
+      description: "This would create a new resource folder in a real implementation.",
     });
   };
   
-  const handlePresentMode = () => {
+  const handleQuickGenerate = () => {
+    setActiveTab('question-bank');
     toast({
-      title: "Present Mode",
-      description: "This would enter presentation mode for teaching in a real implementation.",
+      title: "Question Bank Generator",
+      description: "Quickly create assessment questions with AI",
     });
   };
 
@@ -50,70 +61,136 @@ const Workspace: React.FC = () => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">Workspace</h1>
-          <p className="text-muted-foreground">Manage and present your teaching materials</p>
+          <p className="text-muted-foreground">Manage your teaching materials and resources</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button size="sm" variant="outline" className="hover-scale" onClick={handleNewFolder}>
             <Plus className="h-4 w-4 mr-1" />
-            New Subject
+            New Resource
           </Button>
-          <Button size="sm" className="hover-scale" onClick={handlePresentMode}>
-            <Play className="h-4 w-4 mr-1" />
-            Present Mode
+          <Button size="sm" className="hover-scale" onClick={handleQuickGenerate}>
+            <FileQuestion className="h-4 w-4 mr-1" />
+            Generate Questions
           </Button>
         </div>
       </div>
       
-      <Card>
-        <CardHeader className="pb-3">
-          <div className="flex flex-col md:flex-row gap-3 justify-between items-center">
-            <CardTitle>Subjects - {getSemesterName(currentSemester)}</CardTitle>
-            <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search subjects..."
-                className="pl-9"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Button 
-                variant={view === 'grid' ? 'default' : 'outline'} 
-                size="icon" 
-                className="h-9 w-9"
-                onClick={() => setView('grid')}
-              >
-                <div className="grid grid-cols-2 gap-1 h-4 w-4">
-                  <div className="bg-current rounded-sm"></div>
-                  <div className="bg-current rounded-sm"></div>
-                  <div className="bg-current rounded-sm"></div>
-                  <div className="bg-current rounded-sm"></div>
-                </div>
-              </Button>
-              <Button 
-                variant={view === 'list' ? 'default' : 'outline'} 
-                size="icon" 
-                className="h-9 w-9"
-                onClick={() => setView('list')}
-              >
-                <div className="flex flex-col gap-1 h-4 w-4 justify-between">
-                  <div className="h-[2px] w-full bg-current rounded-full"></div>
-                  <div className="h-[2px] w-full bg-current rounded-full"></div>
-                  <div className="h-[2px] w-full bg-current rounded-full"></div>
-                </div>
-              </Button>
-            </div>
-          </div>
-        </CardHeader>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid grid-cols-3 w-full md:w-[500px]">
+          <TabsTrigger value="resources">Resources</TabsTrigger>
+          <TabsTrigger value="ai-tools">AI Tools</TabsTrigger>
+          <TabsTrigger value="question-bank">Question Bank</TabsTrigger>
+        </TabsList>
         
-        <CardContent>
-          {view === 'grid' ? 
-            <WorkspaceSubjectGrid semester={currentSemester} searchQuery={searchQuery} /> : 
-            <WorkspaceSubjectList semester={currentSemester} searchQuery={searchQuery} />
-          }
-        </CardContent>
-      </Card>
+        <TabsContent value="resources" className="mt-6 animate-fade-in">
+          <Card>
+            <CardHeader className="pb-3">
+              <div className="flex flex-col md:flex-row gap-3 justify-between items-center">
+                <CardTitle>Resources - {getSemesterName(currentSemester)}</CardTitle>
+                <div className="relative flex-1 max-w-sm">
+                  <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search resources..."
+                    className="pl-9"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Button 
+                    variant={resourceFilter === 'all' ? 'default' : 'outline'} 
+                    size="sm"
+                    onClick={() => setResourceFilter('all')}
+                  >
+                    All
+                  </Button>
+                  <Button 
+                    variant={resourceFilter === 'documents' ? 'default' : 'outline'} 
+                    size="sm"
+                    onClick={() => setResourceFilter('documents')}
+                  >
+                    <FileText className="h-4 w-4 mr-1" />
+                    Docs
+                  </Button>
+                  <Button 
+                    variant={resourceFilter === 'presentations' ? 'default' : 'outline'} 
+                    size="sm"
+                    onClick={() => setResourceFilter('presentations')}
+                  >
+                    <Presentation className="h-4 w-4 mr-1" />
+                    Slides
+                  </Button>
+                  <Button 
+                    variant={resourceFilter === 'images' ? 'default' : 'outline'} 
+                    size="sm"
+                    onClick={() => setResourceFilter('images')}
+                  >
+                    <ImageIcon className="h-4 w-4 mr-1" />
+                    Images
+                  </Button>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Button 
+                    variant={view === 'grid' ? 'default' : 'outline'} 
+                    size="icon" 
+                    className="h-9 w-9"
+                    onClick={() => setView('grid')}
+                  >
+                    <div className="grid grid-cols-2 gap-1 h-4 w-4">
+                      <div className="bg-current rounded-sm"></div>
+                      <div className="bg-current rounded-sm"></div>
+                      <div className="bg-current rounded-sm"></div>
+                      <div className="bg-current rounded-sm"></div>
+                    </div>
+                  </Button>
+                  <Button 
+                    variant={view === 'list' ? 'default' : 'outline'} 
+                    size="icon" 
+                    className="h-9 w-9"
+                    onClick={() => setView('list')}
+                  >
+                    <div className="flex flex-col gap-1 h-4 w-4 justify-between">
+                      <div className="h-[2px] w-full bg-current rounded-full"></div>
+                      <div className="h-[2px] w-full bg-current rounded-full"></div>
+                      <div className="h-[2px] w-full bg-current rounded-full"></div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              {view === 'grid' ? 
+                <WorkspaceResourceGrid filter={resourceFilter} searchQuery={searchQuery} /> : 
+                <WorkspaceResourceList filter={resourceFilter} searchQuery={searchQuery} />
+              }
+            </CardContent>
+          </Card>
+        </TabsContent>
+        
+        <TabsContent value="ai-tools" className="mt-6 animate-fade-in">
+          <Tabs defaultValue="summarizer" className="w-full">
+            <TabsList className="grid grid-cols-2 w-full md:w-[300px]">
+              <TabsTrigger value="summarizer">AI Summarizer</TabsTrigger>
+              <TabsTrigger value="ppt">PPT Generator</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="summarizer" className="mt-6 animate-fade-in">
+              <AISummarizer />
+            </TabsContent>
+            
+            <TabsContent value="ppt" className="mt-6 animate-fade-in">
+              <PPTGenerator />
+            </TabsContent>
+          </Tabs>
+        </TabsContent>
+        
+        <TabsContent value="question-bank" className="mt-6 animate-fade-in">
+          <QuestionBankGenerator />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { 
   LayoutDashboard, 
-  BookOpen, 
   Users, 
   Calendar, 
   FileText, 
@@ -12,7 +11,8 @@ import {
   HelpCircle,
   BarChart4,
   Sparkles,
-  Folder
+  Folder,
+  Play
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -24,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-    { icon: BookOpen, label: 'Subjects', path: '/subjects' },
+    { icon: Play, label: 'Live Classroom', path: '/live-classroom' },
     { icon: Users, label: 'Students', path: '/students' },
     { icon: Calendar, label: 'Calendar', path: '/calendar' },
     { icon: FileText, label: 'Assignments', path: '/assignments' },

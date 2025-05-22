@@ -1,71 +1,78 @@
 
 import React from 'react';
-import { Folder, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { getSemesterSubjects } from '@/data/subjectsData';
+import { Badge } from '@/components/ui/badge';
+import { getSubjectsByParams } from '@/data/subjectsData';
 
 interface WorkspaceSubjectListProps {
   semester: string;
   searchQuery: string;
+  onSubjectSelect?: (subjectId: string) => void;
 }
 
-const WorkspaceSubjectList: React.FC<WorkspaceSubjectListProps> = ({ semester, searchQuery }) => {
-  const navigate = useNavigate();
-  const subjects = getSemesterSubjects(semester);
+const WorkspaceSubjectList: React.FC<WorkspaceSubjectListProps> = ({ semester, searchQuery, onSubjectSelect }) => {
+  const subjects = getSubjectsByParams({ semester, search: searchQuery });
   
-  // Filter subjects based on search query
-  const filteredSubjects = subjects.filter(subject => 
-    subject.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    subject.code.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleSubjectClick = (subjectId: string) => {
-    navigate(`/workspace/${subjectId}`);
+  const handleClick = (subjectId: string) => {
+    if (onSubjectSelect) {
+      onSubjectSelect(subjectId);
+    }
   };
   
+  if (subjects.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <h3 className="font-medium text-lg">No subjects found</h3>
+        <p className="text-muted-foreground">Try adjusting your search or add new subjects</p>
+      </div>
+    );
+  }
+  
   return (
-    <div className="rounded-md border">
-      {filteredSubjects.length === 0 ? (
-        <div className="text-center py-10">
-          <Folder className="h-10 w-10 mx-auto mb-2 text-muted-foreground" />
-          <h3 className="font-medium">No subjects found</h3>
-          <p className="text-sm text-muted-foreground">Try adjusting your search</p>
-        </div>
-      ) : (
-        <div className="relative overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="bg-muted/50 text-xs uppercase">
-              <tr>
-                <th scope="col" className="px-4 py-3">Code</th>
-                <th scope="col" className="px-4 py-3">Subject Name</th>
-                <th scope="col" className="px-4 py-3">Modules</th>
-                <th scope="col" className="px-4 py-3">Chapters</th>
-                <th scope="col" className="px-4 py-3 text-right">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredSubjects.map((subject) => (
-                <tr 
-                  key={subject.id} 
-                  className="bg-white border-b hover:bg-accent/30 cursor-pointer"
-                  onClick={() => handleSubjectClick(subject.id)}
-                >
-                  <td className="px-4 py-3 font-medium flex items-center gap-2">
-                    <Folder className="h-5 w-5 text-blue-500" />
-                    <span>{subject.code}</span>
-                  </td>
-                  <td className="px-4 py-3">{subject.name}</td>
-                  <td className="px-4 py-3">{subject.modules.length}</td>
-                  <td className="px-4 py-3">{subject.totalChapters}</td>
-                  <td className="px-4 py-3 text-right">
-                    <ChevronRight className="h-4 w-4 inline-block" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b">
+            <th className="px-4 py-2 text-left font-medium">Code</th>
+            <th className="px-4 py-2 text-left font-medium">Subject</th>
+            <th className="px-4 py-2 text-left font-medium">Schedule</th>
+            <th className="px-4 py-2 text-left font-medium">Students</th>
+            <th className="px-4 py-2 text-left font-medium">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {subjects.map((subject) => (
+            <tr 
+              key={subject.id} 
+              className="border-b hover:bg-muted/50 cursor-pointer transition-colors" 
+              onClick={() => handleClick(subject.id)}
+            >
+              <td className="px-4 py-3">
+                <div className="font-medium">{subject.code}</div>
+              </td>
+              <td className="px-4 py-3">
+                <div>{subject.name}</div>
+              </td>
+              <td className="px-4 py-3">
+                <div>{subject.schedule.day} {subject.schedule.time}</div>
+              </td>
+              <td className="px-4 py-3">
+                <div>{subject.studentCount || '-'}</div>
+              </td>
+              <td className="px-4 py-3">
+                {subject.ongoing ? (
+                  <Badge variant="outline" className="bg-green-100 text-green-800 hover:bg-green-200">
+                    Ongoing
+                  </Badge>
+                ) : (
+                  <Badge variant="outline" className="bg-gray-100 text-gray-800 hover:bg-gray-200">
+                    Upcoming
+                  </Badge>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
