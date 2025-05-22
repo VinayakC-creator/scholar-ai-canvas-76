@@ -30,16 +30,16 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
     if (semesterId) {
       // Map semester ID to full name
       const semesterMap: Record<string, string> = {
-        "1": "1st Semester",
-        "2": "2nd Semester",
-        "3": "3rd Semester",
-        "4": "4th Semester",
-        "5": "5th Semester",
-        "6": "6th Semester",
-        "7": "7th Semester",
-        "8": "8th Semester",
+        "1": "1st Sem.",
+        "2": "2nd Sem.",
+        "3": "3rd Sem.",
+        "4": "4th Sem.",
+        "5": "5th Sem.",
+        "6": "6th Sem.",
+        "7": "7th Sem.",
+        "8": "8th Sem.",
       };
-      setCurrentSemester(semesterMap[semesterId] || `Semester ${semesterId}`);
+      setCurrentSemester(semesterMap[semesterId] || `Sem. ${semesterId}`);
     }
   }, []);
 
@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
 
   return (
     <header className={cn(
-      "fixed top-0 right-0 z-20 h-16 border-b border-border/40 bg-background/80 backdrop-blur-sm transition-all duration-300",
+      "fixed top-0 right-0 z-20 h-16 border-b border-border/30 bg-background/60 backdrop-blur-md transition-all duration-300",
       collapsed ? "left-[70px]" : "left-[250px]"
     )}>
       <div className="flex h-full items-center justify-between px-4">
@@ -82,7 +82,10 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
         
         <div className="flex items-center gap-3">
           {currentSemester && (
-            <Badge className="bg-edu-primary text-white hover:bg-edu-dark py-1 px-3 cursor-pointer" onClick={handleChangeSemester}>
+            <Badge 
+              className="bg-gradient-to-r from-edu-primary to-edu-accent text-white hover:from-edu-dark hover:to-edu-accent py-1.5 px-3 cursor-pointer shadow-md transition-all duration-300 hover:shadow-lg"
+              onClick={handleChangeSemester}
+            >
               {currentSemester}
             </Badge>
           )}
@@ -91,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search..."
-              className="w-[200px] lg:w-[300px] pl-8 rounded-lg bg-background/50 border-border/50 focus-visible:border-edu-primary"
+              className="w-[200px] lg:w-[300px] pl-8 rounded-lg bg-background/30 border-border/40 focus-visible:border-edu-primary backdrop-blur-sm transition-all duration-300 focus-visible:bg-background/50"
             />
           </div>
           
