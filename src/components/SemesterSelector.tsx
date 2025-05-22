@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import {
@@ -20,15 +20,17 @@ const SemesterSelector: React.FC = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
+  const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+  
   const semesters = [
-    { id: "1", name: "1st Semester", icon: BookOpen, color: "bg-pink-500", hoverColor: "hover:bg-pink-600", delay: 0 },
-    { id: "2", name: "2nd Semester", icon: GraduationCap, color: "bg-purple-500", hoverColor: "hover:bg-purple-600", delay: 0.1 },
-    { id: "3", name: "3rd Semester", icon: Atom, color: "bg-blue-500", hoverColor: "hover:bg-blue-600", delay: 0.2 },
-    { id: "4", name: "4th Semester", icon: Rocket, color: "bg-indigo-500", hoverColor: "hover:bg-indigo-600", delay: 0.3 },
-    { id: "5", name: "5th Semester", icon: Zap, color: "bg-teal-500", hoverColor: "hover:bg-teal-600", delay: 0.4 },
-    { id: "6", name: "6th Semester", icon: Brain, color: "bg-green-500", hoverColor: "hover:bg-green-600", delay: 0.5 },
-    { id: "7", name: "7th Semester", icon: FlaskConical, color: "bg-yellow-500", hoverColor: "hover:bg-yellow-600", delay: 0.6 },
-    { id: "8", name: "8th Semester", icon: Microscope, color: "bg-red-500", hoverColor: "hover:bg-red-600", delay: 0.7 },
+    { id: "1", name: "1st Semester", icon: BookOpen, color: "bg-pink-500/90", hoverColor: "hover:bg-pink-600", delay: 0 },
+    { id: "2", name: "2nd Semester", icon: GraduationCap, color: "bg-purple-500/90", hoverColor: "hover:bg-purple-600", delay: 0.1 },
+    { id: "3", name: "3rd Semester", icon: Atom, color: "bg-blue-500/90", hoverColor: "hover:bg-blue-600", delay: 0.2 },
+    { id: "4", name: "4th Semester", icon: Rocket, color: "bg-indigo-500/90", hoverColor: "hover:bg-indigo-600", delay: 0.3 },
+    { id: "5", name: "5th Semester", icon: Zap, color: "bg-teal-500/90", hoverColor: "hover:bg-teal-600", delay: 0.4 },
+    { id: "6", name: "6th Semester", icon: Brain, color: "bg-green-500/90", hoverColor: "hover:bg-green-600", delay: 0.5 },
+    { id: "7", name: "7th Semester", icon: FlaskConical, color: "bg-yellow-500/90", hoverColor: "hover:bg-yellow-600", delay: 0.6 },
+    { id: "8", name: "8th Semester", icon: Microscope, color: "bg-red-500/90", hoverColor: "hover:bg-red-600", delay: 0.7 },
   ];
 
   const handleSemesterSelect = (semesterId: string) => {
@@ -109,8 +111,7 @@ const SemesterSelector: React.FC = () => {
               animate="visible"
               className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
             >
-              {semesters.map((semester) => {
-                const SemesterIcon = semester.icon;
+              {semesters.map((semester, index) => {
                 return (
                   <motion.div
                     key={semester.id}
@@ -118,19 +119,25 @@ const SemesterSelector: React.FC = () => {
                     whileHover="hover"
                     whileTap="tap"
                     onClick={() => handleSemesterSelect(semester.id)}
-                    className={`cursor-pointer rounded-xl ${semester.color} text-white p-6 flex flex-col items-center justify-center transition-all duration-300 ease-out ${semester.hoverColor} transform`}
+                    className={`cursor-pointer rounded-xl ${semester.color} text-white p-6 flex flex-col items-center justify-center transition-all duration-300 ease-out ${semester.hoverColor} transform backdrop-blur-sm`}
                     style={{ 
                       minHeight: '160px',
                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                     }}
                   >
-                    <SemesterIcon className="h-10 w-10 mb-3" />
-                    <h3 className="font-bold text-lg">{semester.name}</h3>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileHover={{ width: '80%' }}
-                      className="h-1 bg-white/50 mt-3 rounded-full"
-                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-7xl font-bold text-white/20 select-none">
+                        {romanNumerals[index]}
+                      </div>
+                    </div>
+                    <div className="relative z-10 flex flex-col items-center">
+                      <h3 className="font-bold text-lg">{semester.name}</h3>
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileHover={{ width: '80%' }}
+                        className="h-1 bg-white/50 mt-3 rounded-full"
+                      />
+                    </div>
                   </motion.div>
                 );
               })}
