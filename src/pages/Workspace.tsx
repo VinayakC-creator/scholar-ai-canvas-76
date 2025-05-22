@@ -1,6 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import React, { useState, useEffect, useRef } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -11,25 +11,31 @@ import {
   FileText,
   Presentation,
   Image as ImageIcon,
-  Sparkles,
-  FileQuestion
+  Sparkles
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import WorkspaceResourceGrid from '@/components/workspace/WorkspaceResourceGrid';
-import WorkspaceResourceList from '@/components/workspace/WorkspaceResourceList';
-import { useNavigate } from 'react-router-dom';
+import HierarchicalResourceView from '@/components/workspace/HierarchicalResourceView';
+import { useNavigate, useLocation } from 'react-router-dom';
 import AISummarizer from '@/components/ai-tools/AISummarizer';
 import PPTGenerator from '@/components/ai-tools/PPTGenerator';
-import QuestionBankGenerator from '@/components/ai-tools/QuestionBankGenerator';
 
 const Workspace: React.FC = () => {
-  const [view, setView] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentSemester, setCurrentSemester] = useState<string>('');
   const [resourceFilter, setResourceFilter] = useState<'all' | 'documents' | 'presentations' | 'images'>('all');
   const [activeTab, setActiveTab] = useState<string>('resources');
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Get state passed from navigation, if any
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.activeTab) {
+        setActiveTab(location.state.activeTab);
+      }
+    }
+  }, [location]);
   
   // Get the current selected semester from sessionStorage
   useEffect(() => {
@@ -47,14 +53,6 @@ const Workspace: React.FC = () => {
       description: "This would create a new resource folder in a real implementation.",
     });
   };
-  
-  const handleQuickGenerate = () => {
-    setActiveTab('question-bank');
-    toast({
-      title: "Question Bank Generator",
-      description: "Quickly create assessment questions with AI",
-    });
-  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -68,18 +66,21 @@ const Workspace: React.FC = () => {
             <Plus className="h-4 w-4 mr-1" />
             New Resource
           </Button>
-          <Button size="sm" className="hover-scale" onClick={handleQuickGenerate}>
-            <FileQuestion className="h-4 w-4 mr-1" />
-            Generate Questions
+          <Button 
+            size="sm" 
+            className="hover-scale" 
+            onClick={() => setActiveTab('ai-tools')}
+          >
+            <Sparkles className="h-4 w-4 mr-1" />
+            AI Tools
           </Button>
         </div>
       </div>
       
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-3 w-full md:w-[500px]">
+        <TabsList className="grid grid-cols-2 w-full md:w-[300px]">
           <TabsTrigger value="resources">Resources</TabsTrigger>
           <TabsTrigger value="ai-tools">AI Tools</TabsTrigger>
-          <TabsTrigger value="question-bank">Question Bank</TabsTrigger>
         </TabsList>
         
         <TabsContent value="resources" className="mt-6 animate-fade-in">
@@ -130,42 +131,14 @@ const Workspace: React.FC = () => {
                     Images
                   </Button>
                 </div>
-                
-                <div className="flex items-center space-x-2">
-                  <Button 
-                    variant={view === 'grid' ? 'default' : 'outline'} 
-                    size="icon" 
-                    className="h-9 w-9"
-                    onClick={() => setView('grid')}
-                  >
-                    <div className="grid grid-cols-2 gap-1 h-4 w-4">
-                      <div className="bg-current rounded-sm"></div>
-                      <div className="bg-current rounded-sm"></div>
-                      <div className="bg-current rounded-sm"></div>
-                      <div className="bg-current rounded-sm"></div>
-                    </div>
-                  </Button>
-                  <Button 
-                    variant={view === 'list' ? 'default' : 'outline'} 
-                    size="icon" 
-                    className="h-9 w-9"
-                    onClick={() => setView('list')}
-                  >
-                    <div className="flex flex-col gap-1 h-4 w-4 justify-between">
-                      <div className="h-[2px] w-full bg-current rounded-full"></div>
-                      <div className="h-[2px] w-full bg-current rounded-full"></div>
-                      <div className="h-[2px] w-full bg-current rounded-full"></div>
-                    </div>
-                  </Button>
-                </div>
               </div>
             </CardHeader>
             
             <CardContent>
-              {view === 'grid' ? 
-                <WorkspaceResourceGrid filter={resourceFilter} searchQuery={searchQuery} /> : 
-                <WorkspaceResourceList filter={resourceFilter} searchQuery={searchQuery} />
-              }
+              <HierarchicalResourceView 
+                semester={currentSemester} 
+                searchQuery={searchQuery} 
+              />
             </CardContent>
           </Card>
         </TabsContent>
@@ -185,10 +158,6 @@ const Workspace: React.FC = () => {
               <PPTGenerator />
             </TabsContent>
           </Tabs>
-        </TabsContent>
-        
-        <TabsContent value="question-bank" className="mt-6 animate-fade-in">
-          <QuestionBankGenerator />
         </TabsContent>
       </Tabs>
     </div>

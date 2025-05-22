@@ -1,4 +1,3 @@
-
 interface Chapter {
   id: string;
   name: string;
@@ -361,7 +360,7 @@ export const getSubject = (subjectId: string): Subject | undefined => {
   return undefined;
 };
 
-// Add the missing getSubjectsByParams function
+// Add the getSubjectsByParams function
 export const getSubjectsByParams = ({ 
   semester, 
   search 
