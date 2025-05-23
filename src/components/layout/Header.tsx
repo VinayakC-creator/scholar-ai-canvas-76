@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import ThemeConfigurator from '@/components/ThemeConfigurator';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
+import ProfileDropdown from '@/components/profile/ProfileDropdown';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -42,12 +43,6 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
       setCurrentSemester(semesterMap[semesterId] || `Sem. ${semesterId}`);
     }
   }, []);
-
-  const handleLogout = () => {
-    // Clear the semester selection when logging out
-    sessionStorage.removeItem('currentSemester');
-    navigate('/signin');
-  };
   
   const handleChangeSemester = () => {
     navigate('/select-semester');
@@ -157,40 +152,12 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
             <Settings className="h-5 w-5" />
           </Button>
           
-          <div className="flex items-center gap-3">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <div className="h-8 w-8 rounded-full bg-edu-accent flex items-center justify-center text-white">
-                    JD
-                  </div>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px] animate-in fade-in">
-                <DropdownMenuItem className="py-2 px-3 cursor-pointer">
-                  <div className="flex flex-col gap-1">
-                    <p className="font-medium text-sm">Profile</p>
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="py-2 px-3 cursor-pointer">
-                  <div className="flex flex-col gap-1">
-                    <p className="font-medium text-sm">Settings</p>
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="py-2 px-3 cursor-pointer" onClick={handleChangeSemester}>
-                  <div className="flex flex-col gap-1">
-                    <p className="font-medium text-sm">Change Semester</p>
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="py-2 px-3 cursor-pointer" onClick={handleLogout}>
-                  <div className="flex flex-col gap-1">
-                    <p className="font-medium text-sm">Sign out</p>
-                  </div>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <ProfileDropdown 
+            userInitials="JD"
+            userName="John Doe"
+            userRole="Professor"
+            avatarUrl="/placeholder.svg"
+          />
         </div>
       </div>
       

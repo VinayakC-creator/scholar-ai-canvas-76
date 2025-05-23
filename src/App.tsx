@@ -19,6 +19,8 @@ import LiveClassroom from "./pages/LiveClassroom";
 import Assignments from "./pages/Assignments";
 import Analytics from "./pages/Analytics";
 import CalendarPage from "./pages/CalendarPage";
+import Settings from "./pages/Settings";
+import Help from "./pages/Help";
 
 const queryClient = new QueryClient();
 
@@ -44,8 +46,8 @@ const App = () => (
             <Route path="/workspace" element={<Workspace />} />
             <Route path="/workspace/:subjectId" element={<SubjectView />} />
             <Route path="/workspace/attendance" element={<AttendanceMark />} />
-            <Route path="/settings" element={<Index />} />
-            <Route path="/help" element={<Index />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/help" element={<Help />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
