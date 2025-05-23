@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar } from '@/components/ui/calendar';
@@ -22,7 +21,8 @@ import {
   Plus,
   SlidersHorizontal,
   Trash2,
-  Users
+  Users,
+  Calendar as CalendarIcon
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -790,23 +790,28 @@ const CalendarPage: React.FC = () => {
                   
                   <div className="space-y-4">
                     {getEventsForMonth(selectedDate || new Date()).length > 0 ? (
-                      getEventsForMonth(selectedDate || new Date())
-                        .sort((a, b) => a.date.getTime() - b.date.getTime())
-                        .reduce<{ [date: string]: Event[] }>((groups, event) => {
-                          const dateStr = format(event.date, 'yyyy-MM-dd');
-                          if (!groups[dateStr]) {
-                            groups[dateStr] = [];
-                          }
-                          groups[dateStr].push(event);
-                          return groups;
-                        }, {})
-                        .map((entries: [string, Event[]], date: string) => (
-                          <div key={date} className="space-y-2">
+                      (() => {
+                        const eventsByDate: Record<string, Event[]> = {};
+                        
+                        // Group events by date string
+                        getEventsForMonth(selectedDate || new Date())
+                          .sort((a, b) => a.date.getTime() - b.date.getTime())
+                          .forEach(event => {
+                            const dateStr = format(event.date, 'yyyy-MM-dd');
+                            if (!eventsByDate[dateStr]) {
+                              eventsByDate[dateStr] = [];
+                            }
+                            eventsByDate[dateStr].push(event);
+                          });
+                        
+                        // Now render each date group
+                        return Object.entries(eventsByDate).map(([dateStr, events]) => (
+                          <div key={dateStr} className="space-y-2">
                             <h3 className="font-medium border-b pb-2">
-                              {format(new Date(entries[0].date), 'EEEE, MMMM d, yyyy')}
+                              {format(new Date(events[0].date), 'EEEE, MMMM d, yyyy')}
                             </h3>
                             <div className="space-y-2 pl-4">
-                              {entries.map((event) => (
+                              {events.map((event) => (
                                 <div 
                                   key={event.id} 
                                   className="flex items-center justify-between p-2 rounded-md hover:bg-accent cursor-pointer"
@@ -837,7 +842,8 @@ const CalendarPage: React.FC = () => {
                               ))}
                             </div>
                           </div>
-                        ))
+                        ));
+                      })()
                     ) : (
                       <div className="text-center py-8">
                         <p className="text-muted-foreground">No events found for this month</p>
