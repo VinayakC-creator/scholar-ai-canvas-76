@@ -16,44 +16,49 @@ import SemesterSelector from "./components/SemesterSelector";
 import SubjectQuestionBank from "./pages/SubjectQuestionBank";
 import Students from "./pages/Students";
 import LiveClassroom from "./pages/LiveClassroom";
+import VirtualClassroom from "./pages/VirtualClassroom";
 import Assignments from "./pages/Assignments";
 import Analytics from "./pages/Analytics";
 import CalendarPage from "./pages/CalendarPage";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/select-semester" element={<SemesterSelector />} />
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Index />} />
-            <Route path="/live-classroom" element={<LiveClassroom />} />
-            <Route path="/live-classroom/:subjectId" element={<SubjectView />} />
-            <Route path="/subjects/:subjectId/question-bank" element={<SubjectQuestionBank />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/assignments" element={<Assignments />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/ai-tools" element={<AITools />} />
-            <Route path="/workspace" element={<Workspace />} />
-            <Route path="/workspace/:subjectId" element={<SubjectView />} />
-            <Route path="/workspace/attendance" element={<AttendanceMark />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/help" element={<Help />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ThemeProvider defaultTheme="system">
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/select-semester" element={<SemesterSelector />} />
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Index />} />
+              <Route path="/live-classroom" element={<LiveClassroom />} />
+              <Route path="/live-classroom/:subjectId" element={<SubjectView />} />
+              <Route path="/virtual-classroom" element={<VirtualClassroom />} />
+              <Route path="/subjects/:subjectId/question-bank" element={<SubjectQuestionBank />} />
+              <Route path="/students" element={<Students />} />
+              <Route path="/calendar" element={<CalendarPage />} />
+              <Route path="/assignments" element={<Assignments />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/ai-tools" element={<AITools />} />
+              <Route path="/workspace" element={<Workspace />} />
+              <Route path="/workspace/:subjectId" element={<SubjectView />} />
+              <Route path="/workspace/attendance" element={<AttendanceMark />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/help" element={<Help />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;

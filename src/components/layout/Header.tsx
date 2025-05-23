@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Bell, Search, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Bell, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { 
@@ -11,10 +11,12 @@ import {
   DropdownMenuSeparator
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import ThemeConfigurator from '@/components/ThemeConfigurator';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from '@/components/profile/ProfileDropdown';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import ThemeConfigurator from '@/components/ThemeConfigurator';
+import AppPortalMenu from '@/components/layout/AppPortalMenu';
 
 interface HeaderProps {
   toggleSidebar: () => void;
@@ -85,12 +87,15 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
             </Badge>
           )}
           
-          <div className="relative hidden md:block">
+          <div className="relative hidden md:flex items-center">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search..."
               className="w-[200px] lg:w-[300px] pl-8 rounded-lg bg-background/30 border-border/40 focus-visible:border-edu-primary backdrop-blur-sm transition-all duration-300 focus-visible:bg-background/50"
             />
+            <div className="ml-2">
+              <AppPortalMenu />
+            </div>
           </div>
           
           <DropdownMenu>
@@ -144,13 +149,8 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar, collapsed }) => {
             </DropdownMenuContent>
           </DropdownMenu>
           
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => setShowConfigurator(!showConfigurator)}
-          >
-            <Settings className="h-5 w-5" />
-          </Button>
+          {/* Theme Toggle Button */}
+          <ThemeToggle />
           
           <ProfileDropdown 
             userInitials="JD"

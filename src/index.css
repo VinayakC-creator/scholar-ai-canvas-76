@@ -46,6 +46,46 @@
     --sidebar-ring: 210 100% 60%;
   }
 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 6.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 349 95% 55%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.5% 48%;
+
+    /* Dark mode sidebar colors */
+    --sidebar-background: 220 65% 9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 100% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 95% 55%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 35% 15%;
+    --sidebar-ring: 210 100% 60%;
+  }
+  
   * {
     @apply border-border;
   }
@@ -72,7 +112,7 @@
   }
 
   .glass-card {
-    @apply bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg;
+    @apply bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border border-gray-200 dark:border-gray-800 shadow-lg;
   }
   
   .nav-item {
@@ -82,4 +122,13 @@
   .nav-item.active {
     @apply bg-sidebar-accent text-sidebar-accent-foreground;
   }
+}
+
+/* Fix for code block syntax in dark mode */
+.dark pre {
+  @apply bg-slate-900 border-slate-700;
+}
+
+.dark code {
+  @apply text-slate-100;
 }
