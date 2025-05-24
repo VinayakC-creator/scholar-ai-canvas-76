@@ -12,7 +12,8 @@ import {
   BarChart4,
   Sparkles,
   Folder,
-  Play
+  Play,
+  Monitor
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -25,6 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
     { icon: Play, label: 'Live Classroom', path: '/live-classroom' },
+    { icon: Monitor, label: 'Virtual Classroom', path: '/virtual-classroom' },
     { icon: Users, label: 'Students', path: '/students' },
     { icon: Calendar, label: 'Calendar', path: '/calendar' },
     { icon: FileText, label: 'Assignments', path: '/assignments' },
