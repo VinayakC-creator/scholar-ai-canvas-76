@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
@@ -19,11 +18,13 @@ import {
   Eye,
   Clock,
   User,
-  CheckCircle
+  CheckCircle,
+  ArrowLeft
 } from 'lucide-react';
 
 const VirtualClassroom: React.FC = () => {
   const [announcement, setAnnouncement] = useState('');
+  const [selectedClass, setSelectedClass] = useState<string | null>(null);
 
   const classStats = [
     { label: 'Your Classes', value: '3', icon: BookOpen, color: 'text-blue-500' },
@@ -69,6 +70,38 @@ const VirtualClassroom: React.FC = () => {
     { name: 'Question Bank for Unit 1', type: 'DOC', size: '1.8 MB' },
     { name: 'Lecture 01: Web Development', type: 'PPT', size: '5.2 MB' }
   ];
+
+  const handleVisitClass = (classId: string) => {
+    setSelectedClass(classId);
+  };
+
+  const handleBackToClasses = () => {
+    setSelectedClass(null);
+  };
+
+  // If a class is selected, show the class interface
+  if (selectedClass) {
+    return (
+      <div className="min-h-screen bg-background">
+        {/* Back button */}
+        <div className="p-4 border-b">
+          <Button variant="ghost" onClick={handleBackToClasses} className="mb-2">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Classes
+          </Button>
+        </div>
+        
+        {/* Class interface image */}
+        <div className="w-full h-[calc(100vh-80px)]">
+          <img 
+            src="/lovable-uploads/36a97894-54f1-425b-90c8-1a425da7d124.png" 
+            alt="Class Interface" 
+            className="w-full h-full object-contain"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -143,7 +176,13 @@ const VirtualClassroom: React.FC = () => {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full">Visit Class</Button>
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => handleVisitClass(classItem.id)}
+                  >
+                    Visit Class
+                  </Button>
                 </CardFooter>
               </Card>
             ))}
